@@ -100,15 +100,9 @@ public class Veicolo {
 
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
-	private Date dataScadGaranziaLungoPeriodo;
+	private Date dataScadGaranziaEstesa;
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
-	private Date dataScadPolizzaGaranziaBase;
-
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
-	private Date dataScadPolizzaGaranziaEstesa;
+	
 
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
