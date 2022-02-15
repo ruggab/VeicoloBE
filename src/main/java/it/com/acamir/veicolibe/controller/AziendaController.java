@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +31,10 @@ public class AziendaController {
 		return aziendaRepository.count();
 	}
 
-	public void deleteAzienda(Azienda azienda) {
-		aziendaRepository.delete(azienda);
+	@GetMapping("/deleteAzienda/{idAzienda}")
+	public List<Azienda> deleteAzienda(@PathVariable(value = "idAzienda") String idAzienda) {
+		aziendaRepository.deleteById(new Integer(idAzienda));
+		return aziendaRepository.findAll();
 	}
 
 	public Azienda findAzienda(Integer id) {
