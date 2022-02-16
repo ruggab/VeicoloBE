@@ -20,10 +20,10 @@ import it.com.acamir.veicolibe.repository.AziendaRepository;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
-public class AziendaController {
+public class GaraController {
 
 	@Autowired
-	AziendaRepository aziendaRepository;
+	GaraRepository aziendaRepository;
 
 
 	@GetMapping("/deleteAzienda/{idAzienda}")
