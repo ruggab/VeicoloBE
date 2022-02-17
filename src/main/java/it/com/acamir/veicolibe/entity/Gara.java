@@ -25,19 +25,19 @@ public class Gara {
 	
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id", nullable = true)
-	private Dizionario finanziamentoAcquisto;
+	private Dizionario finAcq;
 	
 	
 	@Column(length = 15)
-	private String codUnicProg;
+	private String cup;
 	
 	@Column(length = 10)
-	private String codIdeGara;
+	private String cig;
 	
 	@Column(length = 20)
-	private String respUnicProc;
+	private String rup;
 	
 	@Column(length = 20)
-	private String dirEsecCont;
+	private String drec;
 
 }

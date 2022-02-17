@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.com.acamir.veicolibe.entity.Azienda;
-import it.com.acamir.veicolibe.repository.AziendaRepository;
+import it.com.acamir.veicolibe.entity.Gara;
+import it.com.acamir.veicolibe.repository.GaraRepository;
 
 @RestController
 @RequestMapping("/api")
@@ -23,32 +23,32 @@ import it.com.acamir.veicolibe.repository.AziendaRepository;
 public class GaraController {
 
 	@Autowired
-	GaraRepository aziendaRepository;
+	GaraRepository garaRepository;
 
 
-	@GetMapping("/deleteAzienda/{idAzienda}")
-	public List<Azienda> deleteAzienda(@PathVariable(value = "idAzienda") String idAzienda) {
-		aziendaRepository.deleteById(new Integer(idAzienda));
-		return aziendaRepository.findAll();
+	@GetMapping("/deleteGara/{idGara}")
+	public List<Gara> deleteGara(@PathVariable(value = "idGara") String idGara) {
+		garaRepository.deleteById(new Integer(idGara));
+		return garaRepository.findAll();
 	}
 	
-	@GetMapping("/getListAzienda")
-	public List<Azienda> getListAzienda() {
-		return aziendaRepository.findAll();
+	@GetMapping("/getListGara")
+	public List<Gara> getListGara() {
+		return garaRepository.findAll();
 	}
 	
-	@PostMapping("/getListAziendaByFilter")
-	public List<Azienda> getListAziendaByFilter(@RequestBody Azienda azienda) {
-		List<Azienda> listaAzienda = aziendaRepository.getListAziendaByFilter(azienda.getMatricola(), azienda.getNominativoRef(), azienda.getMailRef(), azienda.getTelRef());
-		return listaAzienda;
+	@PostMapping("/getListGaraByFilter")
+	public List<Gara> getListAziendaByFilter(@RequestBody Gara gara) {
+		List<Gara> listaGara = garaRepository.getListGaraByFilter(gara.getCodGara(), gara.getCig(), gara.getCup(), gara.getRup(), gara.getDrec());
+		return listaGara;
 	}
 
 	
-	@PostMapping("/generateAzienda")
+	@PostMapping("/generateGara")
 	@ResponseBody
-	public ResponseEntity<Azienda> generateAzienda(@RequestBody Azienda azienda) {
-		Azienda aziendaNew = aziendaRepository.save(azienda);
-		return new ResponseEntity<Azienda>(aziendaNew, HttpStatus.OK);
+	public ResponseEntity<Gara> generateGara(@RequestBody Gara gara) {
+		Gara garaNew = garaRepository.save(gara);
+		return new ResponseEntity<Gara>(garaNew, HttpStatus.OK);
 	}
 
 	

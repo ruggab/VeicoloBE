@@ -11,11 +11,11 @@ import it.com.acamir.veicolibe.entity.Gara;
 public interface GaraRepository extends JpaRepository<Gara, Integer>, JpaSpecificationExecutor<Gara> {
 	
 	
- @Query(value = "select * from azienda a"
-    		+ " where (?1 = '' or a.codGara = ?1) and (?2 = '' or a.cup = ?2) "
-    		+ " and (?3 = '' or a.mail_ref = ?3) and (?4 = '' or a.tel_ref = ?4) order by a.nominativo_ref" , nativeQuery = true)
- List<Gara> getListGaraByFilter(String matricola, String nominativo, String mail, String tel);
+ @Query(value = "select * from gara a"
+    		+ " where (?1 = '' or a.cod_gara = ?1) and (?2 = '' or a.cig = ?2) "
+    		+ " and (?3 = '' or a.sup = ?3) and (?4 = '' or a.rup = ?4) and (?5 = '' or a.dec = ?5) order by a.cod_gara" , nativeQuery = true)
+ List<Gara> getListGaraByFilter(String cod_gara, String cig, String cup, String rup,String dec);
 	 
-	 
+
 	 
 }
