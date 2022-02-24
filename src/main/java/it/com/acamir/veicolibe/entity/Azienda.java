@@ -16,7 +16,7 @@ public class Azienda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	private String nome;
 	private String matricola;
 	private String nominativoRef;
 	private String mailRef;
