@@ -39,7 +39,7 @@ public class AziendaController {
 	
 	@PostMapping("/getListAziendaByFilter")
 	public List<Azienda> getListAziendaByFilter(@RequestBody Azienda azienda) {
-		List<Azienda> listaAzienda = aziendaRepository.getListAziendaByFilter(azienda.getMatricola(), azienda.getNominativoRef(), azienda.getMailRef(), azienda.getTelRef());
+		List<Azienda> listaAzienda = aziendaRepository.getListAziendaByFilter(azienda.getMatricola(), azienda.getNome(), azienda.getNominativoRef(), azienda.getMailRef());
 		return listaAzienda;
 	}
 
