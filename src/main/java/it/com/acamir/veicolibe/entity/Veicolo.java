@@ -79,37 +79,30 @@ public class Veicolo {
 	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
 	private Date dataPrimaImm;
 
-	@Column(precision = 3, scale = 2)
+	@Column(precision = 4, scale = 2)
 	private BigDecimal lunghezza;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
 	private Date dataContrattoAziendaTpl;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
 	private Date dataConsegnaAdAziendaTpl;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
 	private Date dataUltimaRevisione;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
 	private Date dataScadGaranziaBase;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
 	private Date dataScadGaranziaEstesa;
 
 	
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
 	private Date dataScadUsufrutto;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
 	private Date dataScadVincolo;
 
 	@Column(precision = 6, scale = 3)
@@ -125,8 +118,7 @@ public class Veicolo {
 	private Integer NumSimTelefonico;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
-	private Date dataAttivazioneAVM;
+	private Date dataAttivazioneavm;
 
 	@Column(length = 50)
 	private String utimaVerIspettiva;
@@ -141,10 +133,8 @@ public class Veicolo {
 	private String idUtente;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
 	private Date dataInserimento;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy mm:hh:ss")
 	private Date dataAggiornamento;
 }
