@@ -1,5 +1,6 @@
 package it.com.acamir.veicolibe.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,28 +28,36 @@ public class VeicoloController {
 	@Autowired
 	VeicoloRepository veicoloRepository;
 
-
 	@GetMapping("/deleteVeicolo/{idVeicolo}")
 	public List<Veicolo> deleteGara(@PathVariable(value = "idVeicolo") String idVeicolo) {
 		veicoloRepository.deleteById(new Integer(idVeicolo));
 		return veicoloRepository.findAll();
 	}
-	
+
 	@GetMapping("/getListVeicolo")
 	public List<Veicolo> getListVeicolo() {
 		return veicoloRepository.findAll();
 	}
-	
+
 	@PostMapping("/getListVeicoloByFilter")
 	public List<Veicolo> getListVeicoloByFilter(@RequestBody Veicolo veicolo) {
-		List<Veicolo> listaVeicoli = veicoloRepository.getListVeicoloByFilter(veicolo.getMatricola(), veicolo.getTelaio(), veicolo.getAssegnatario().getId());
+
+		Integer idAss = null;
+		if (veicolo.getAssegnatario() != null) {
+			idAss = veicolo.getAssegnatario().getId();
+		}
+		List<Veicolo> listaVeicoli = veicoloRepository.getListVeicoloByFilter(veicolo.getMatricola(), veicolo.getTelaio(), idAss);
 		return listaVeicoli;
 	}
 
-	
 	@PostMapping("/generateVeicolo")
 	@ResponseBody
 	public ResponseEntity<Veicolo> generateVeicolo(@RequestBody Veicolo veicolo) {
+		Date now = new Date(System.currentTimeMillis());
+		veicolo.setDataAggiornamento(now);
+		if (veicolo.getId() == null) {
+			veicolo.setDataInserimento(now);
+		} 
 		Veicolo veicoloNew = veicoloRepository.save(veicolo);
 		return new ResponseEntity<Veicolo>(veicoloNew, HttpStatus.OK);
 	}

@@ -130,7 +130,7 @@ public class Veicolo {
 	private String depositoRicoveroProtComunicazione;
 
 	@Column(length = 45)
-	private String idUtente;
+	private String username;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInserimento;
