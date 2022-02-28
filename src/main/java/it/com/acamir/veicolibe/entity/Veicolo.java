@@ -41,27 +41,27 @@ public class Veicolo {
 	private Long costoAcquistoNettoIva;
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "id", nullable = false)
+	@JoinColumn(referencedColumnName = "id")
 	private Dizionario modello;
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "id", nullable = false)
+	@JoinColumn(referencedColumnName = "id")
 	private Dizionario categoria;
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "id", nullable = false)
+	@JoinColumn(referencedColumnName = "id")
 	private Dizionario tipoAllestimento;
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "id", nullable = false)
+	@JoinColumn(referencedColumnName = "id")
 	private Dizionario tipoAlimentazione;
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "id", nullable = false)
+	@JoinColumn(referencedColumnName = "id")
 	private Dizionario classe;
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "id", nullable = false)
+	@JoinColumn(referencedColumnName = "id")
 	private Dizionario fornitore;
 
 	@ManyToOne
@@ -69,7 +69,7 @@ public class Veicolo {
 	private Dizionario dispCopiaCartaCirc;
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "id", nullable = false)
+	@JoinColumn(referencedColumnName = "id")
 	private Dizionario regimeProprieta;
 
 	@Column(length = 7)
