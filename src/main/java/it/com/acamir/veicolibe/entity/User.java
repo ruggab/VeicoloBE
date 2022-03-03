@@ -1,6 +1,8 @@
 package it.com.acamir.veicolibe.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -37,6 +39,13 @@ public class User {
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+	
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "users_azienda",
+				joinColumns = @JoinColumn(name = "user_id"), 
+				inverseJoinColumns = @JoinColumn(name = "azienda_id"))
+	private List<Azienda> aziendas = new ArrayList<Azienda>();
 
 	public User() {
 	}
@@ -86,4 +95,15 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+	public List<Azienda> getAziendas() {
+		return aziendas;
+	}
+
+	public void setAziendas(List<Azienda> aziendas) {
+		this.aziendas = aziendas;
+	}
+	
+	
+	
 }

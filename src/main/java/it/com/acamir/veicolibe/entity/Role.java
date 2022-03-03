@@ -1,5 +1,10 @@
 package it.com.acamir.veicolibe.entity;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +17,9 @@ public class Role {
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
 	private ERole name;
+	
+
+	
 
 	public Role() {
 
@@ -36,4 +44,8 @@ public class Role {
 	public void setName(ERole name) {
 		this.name = name;
 	}
+
+	
+	
+	
 }

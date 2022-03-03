@@ -30,6 +30,10 @@ public class Veicolo {
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id", nullable = false)
 	private Azienda assegnatario;
+	
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "id", nullable = false)
+	private Gara gara;
 
 	@Column(length = 5)
 	private String matricola;

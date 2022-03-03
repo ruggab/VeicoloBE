@@ -2,6 +2,8 @@ package it.com.acamir.veicolibe.payload.response;
 
 import java.util.List;
 
+import it.com.acamir.veicolibe.entity.Azienda;
+
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
@@ -9,13 +11,16 @@ public class JwtResponse {
 	private String username;
 	private String email;
 	private List<String> roles;
+	private List<Azienda> aziendas;
 
-	public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles) {
+	public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles, List<Azienda> aziendas) {
 		this.token = accessToken;
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.roles = roles;
+		this.aziendas = aziendas;
+		
 	}
 
 	public String getAccessToken() {
@@ -61,4 +66,14 @@ public class JwtResponse {
 	public List<String> getRoles() {
 		return roles;
 	}
+
+	public List<Azienda> getAziendas() {
+		return aziendas;
+	}
+
+	public void setAziendas(List<Azienda> aziendas) {
+		this.aziendas = aziendas;
+	}
+	
+	
 }

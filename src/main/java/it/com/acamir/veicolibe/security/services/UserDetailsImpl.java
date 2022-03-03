@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import it.com.acamir.veicolibe.entity.Azienda;
 import it.com.acamir.veicolibe.entity.User;
 
 public class UserDetailsImpl implements UserDetails {
@@ -26,19 +27,22 @@ public class UserDetailsImpl implements UserDetails {
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;
+	
+	private List<Azienda> aziendas;
 
-	public UserDetailsImpl(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+	public UserDetailsImpl(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities,  List<Azienda> aziendas) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
+		this.aziendas = aziendas;
 	}
 
 	public static UserDetailsImpl build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
-
-		return new UserDetailsImpl(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), authorities);
+		
+		return new UserDetailsImpl(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), authorities, user.getAziendas());
 	}
 
 	@Override
@@ -93,4 +97,15 @@ public class UserDetailsImpl implements UserDetails {
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
 	}
+
+	public List<Azienda> getAziendas() {
+		return aziendas;
+	}
+
+	public void setAziendas(List<Azienda> aziendas) {
+		this.aziendas = aziendas;
+	}
+	
+	
+	
 }
