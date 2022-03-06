@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.com.acamir.veicolibe.entity.ERole;
 import it.com.acamir.veicolibe.entity.Role;
 import it.com.acamir.veicolibe.entity.User;
+import it.com.acamir.veicolibe.payload.request.ChangePasswordRequest;
 import it.com.acamir.veicolibe.payload.request.LoginRequest;
 import it.com.acamir.veicolibe.payload.request.SignupRequest;
 import it.com.acamir.veicolibe.payload.response.JwtResponse;
@@ -109,5 +111,24 @@ public class AuthController {
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
+	
+	
+	@PostMapping("/changePassword")
+	public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest cpRequest) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		User user = userRepository.findByUsername(cpRequest.getUsername()).get();
+		if (user == null) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Attenzione username non esistente"));
+		}
+		boolean matchPasw = passwordEncoder.matches(cpRequest.getOldPassword(), user.getPassword());
+		if (!matchPasw) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Attenzione la vecchia password non è corretta"));
+		}
+		//
+		user.setPassword(passwordEncoder.encode(cpRequest.getPassword()));
+		userRepository.save(user);
+		//
+		return ResponseEntity.ok(new MessageResponse("Password Modificata Correttamente"));
 	}
 }
