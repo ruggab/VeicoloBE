@@ -38,7 +38,7 @@ public class User {
 	@JoinTable(	name = "users_roles",
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
+	private List<Role> roles = new ArrayList<Role>();
 	
 	
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -88,11 +88,13 @@ public class User {
 		this.password = password;
 	}
 
-	public Set<Role> getRoles() {
+	
+
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 

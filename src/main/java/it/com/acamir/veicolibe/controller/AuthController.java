@@ -1,5 +1,6 @@
 package it.com.acamir.veicolibe.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.com.acamir.veicolibe.entity.Azienda;
 import it.com.acamir.veicolibe.entity.ERole;
 import it.com.acamir.veicolibe.entity.Role;
 import it.com.acamir.veicolibe.entity.User;
+import it.com.acamir.veicolibe.payload.request.AddUserRequest;
 import it.com.acamir.veicolibe.payload.request.ChangePasswordRequest;
 import it.com.acamir.veicolibe.payload.request.LoginRequest;
 import it.com.acamir.veicolibe.payload.request.SignupRequest;
@@ -82,7 +85,7 @@ public class AuthController {
 		User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
 
 		Set<String> strRoles = signUpRequest.getRole();
-		Set<Role> roles = new HashSet<>();
+		List<Role> roles = new ArrayList<Role>();
 
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -95,11 +98,12 @@ public class AuthController {
 					roles.add(adminRole);
 
 					break;
-//				case "mod":
-//					Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//					roles.add(modRole);
-//
-//					break;
+				// case "mod":
+				// Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR).orElseThrow(() -> new
+				// RuntimeException("Error: Role is not found."));
+				// roles.add(modRole);
+				//
+				// break;
 				default:
 					Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(userRole);
@@ -112,8 +116,7 @@ public class AuthController {
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
-	
-	
+
 	@PostMapping("/changePassword")
 	public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest cpRequest) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -130,5 +133,32 @@ public class AuthController {
 		userRepository.save(user);
 		//
 		return ResponseEntity.ok(new MessageResponse("Password Modificata Correttamente"));
+	}
+
+	@PostMapping("/addUser")
+	public ResponseEntity<?> addUser(@Valid @RequestBody AddUserRequest addUserRequest) {
+		//
+		if (userRepository.existsByUsername(addUserRequest.getUsername())) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username già in uso!"));
+		}
+		//
+		if (userRepository.existsByEmail(addUserRequest.getEmail())) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email già in uso!"));
+		}
+		User user = new User(addUserRequest.getUsername(), addUserRequest.getEmail(), encoder.encode(addUserRequest.getPassword()));
+
+		// Aggiungi ruolo user
+		List<Role> roles = new ArrayList<Role>();
+		Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+		roles.add(userRole);
+		user.setRoles(roles);
+		// Aggiungi Aziende
+		List<Azienda> aziendas = new ArrayList<Azienda>();
+		aziendas.add(addUserRequest.getAzienda());
+		user.setAziendas(aziendas);
+		//
+		userRepository.save(user);
+		//
+		return ResponseEntity.ok(new MessageResponse("Utente Creato Correttamente"));
 	}
 }
