@@ -161,4 +161,17 @@ public class AuthController {
 		//
 		return ResponseEntity.ok(new MessageResponse("Utente Creato Correttamente"));
 	}
+	
+	@PostMapping("/getListUtenteByFilter")
+	public List<User> getListUtenteByFilter(@RequestBody User user) {
+		
+		Integer idAz = null;
+		if (user.getAziendas() != null && user.getAziendas().size() > 0) {
+			idAz =  user.getAziendas().get(0).getId();
+		}
+		
+		List<User> listaUtente = userRepository.getListUtenteByFilter(user.getUsername(), idAz);
+		return listaUtente;
+	}
+
 }
