@@ -138,14 +138,19 @@ public class AuthController {
 	@PostMapping("/addUser")
 	public ResponseEntity<?> addUser(@Valid @RequestBody AddUserRequest addUserRequest) {
 		//
-		if (userRepository.existsByUsername(addUserRequest.getUsername())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username già in uso!"));
+		User user = null;
+		if (addUserRequest.getId() == null) {
+			if (userRepository.existsByUsername(addUserRequest.getUsername())) {
+				return ResponseEntity.badRequest().body(new MessageResponse("Error: Username già in uso!"));
+			}
+			//
+			if (userRepository.existsByEmail(addUserRequest.getEmail())) {
+				return ResponseEntity.badRequest().body(new MessageResponse("Error: Email già in uso!"));
+			}
+			user = new User(addUserRequest.getUsername(), addUserRequest.getEmail(), encoder.encode(addUserRequest.getPassword()));
+		} else {
+			user = userRepository.findById(addUserRequest.getId()).get();
 		}
-		//
-		if (userRepository.existsByEmail(addUserRequest.getEmail())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email già in uso!"));
-		}
-		User user = new User(addUserRequest.getUsername(), addUserRequest.getEmail(), encoder.encode(addUserRequest.getPassword()));
 
 		// Aggiungi ruolo user
 		List<Role> roles = new ArrayList<Role>();
@@ -161,15 +166,15 @@ public class AuthController {
 		//
 		return ResponseEntity.ok(new MessageResponse("Utente Creato Correttamente"));
 	}
-	
+
 	@PostMapping("/getListUtenteByFilter")
 	public List<User> getListUtenteByFilter(@RequestBody User user) {
-		
+
 		Integer idAz = null;
 		if (user.getAziendas() != null && user.getAziendas().size() > 0) {
-			idAz =  user.getAziendas().get(0).getId();
+			idAz = user.getAziendas().get(0).getId();
 		}
-		
+
 		List<User> listaUtente = userRepository.getListUtenteByFilter(user.getUsername(), idAz);
 		return listaUtente;
 	}

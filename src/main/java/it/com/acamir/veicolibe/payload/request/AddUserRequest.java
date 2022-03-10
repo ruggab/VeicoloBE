@@ -7,6 +7,9 @@ import javax.validation.constraints.Size;
 import it.com.acamir.veicolibe.entity.Azienda;
 
 public class AddUserRequest {
+
+	private Long id;
+
 	@NotBlank
 	@Size(min = 3, max = 20)
 	private String username;
@@ -52,6 +55,14 @@ public class AddUserRequest {
 
 	public void setAzienda(Azienda azienda) {
 		this.azienda = azienda;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
