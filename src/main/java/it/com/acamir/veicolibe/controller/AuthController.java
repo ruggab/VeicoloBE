@@ -150,6 +150,8 @@ public class AuthController {
 			user = new User(addUserRequest.getUsername(), addUserRequest.getEmail(), encoder.encode(addUserRequest.getPassword()));
 		} else {
 			user = userRepository.findById(addUserRequest.getId()).get();
+			user.setEmail(addUserRequest.getEmail());
+			user.setPassword(encoder.encode(addUserRequest.getPassword()));
 		}
 
 		// Aggiungi ruolo user
@@ -164,14 +166,14 @@ public class AuthController {
 		//
 		userRepository.save(user);
 		//
-		return ResponseEntity.ok(new MessageResponse("Utente Creato Correttamente"));
+		return ResponseEntity.ok(new MessageResponse("Utente Aggiornato Correttamente"));
 	}
 
 	@PostMapping("/getListUtenteByFilter")
 	public List<User> getListUtenteByFilter(@RequestBody User user) {
 
 		Integer idAz = null;
-		if (user.getAziendas() != null && user.getAziendas().size() > 0) {
+		if (user.getAziendas() != null && user.getAziendas().size() > 0 && user.getAziendas().get(0) != null) {
 			idAz = user.getAziendas().get(0).getId();
 		}
 
