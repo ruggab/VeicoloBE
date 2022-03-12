@@ -87,11 +87,7 @@ public class Veicolo {
 	@Column(precision = 4, scale = 2)
 	private BigDecimal lunghezza;
 
-	@Temporal(TemporalType.DATE)
-	private Date dataContrattoAziendaTpl;
-
-	@Temporal(TemporalType.DATE)
-	private Date dataConsegnaAdAziendaTpl;
+	
 
 	
 
@@ -111,8 +107,7 @@ public class Veicolo {
 
 	
 
-	@Column(length = 250)
-	private String note;
+	
 
 	private Integer numPorte;
 
@@ -121,15 +116,17 @@ public class Veicolo {
 	private Integer NumSimTelefonico;
 
 	@Temporal(TemporalType.DATE)
-	private Date dataAttivazioneavm;
+	private Date dataAttivazioneAvm;
 
 	@Column(length = 50)
 	private String utimaVerIspettiva;
-
+	
+	@Column(length = 250)
+	private String noteVerificaIsp;
 	
 
 	@Column(length = 15)
-	private String depositoRicoveroProtComunicazione;
+	private String numProtocolloRicovero;
 
 	@Column(length = 45)
 	private String username;
@@ -168,10 +165,13 @@ public class Veicolo {
 	private Double val11Canone;
 	
 	@Temporal(TemporalType.DATE)
-	private Date dataContrAssTpl;
+	private Date dataConsegnaAziendaTpl;
 	
 	@Temporal(TemporalType.DATE)
-	private Date dataContrAssApplTpl;
+	private Date dataContrattoApplAziendaTpl;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dataContrattoAssegnAziendaTpl;
 	
 	@Column(length = 15)
 	private String protArrivoAcamMessADispCons;
@@ -197,7 +197,6 @@ public class Veicolo {
 	
 	@Column(length = 50)
 	private String protComSituazApparati;
-	
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaVerificaIsp;
