@@ -87,18 +87,6 @@ public class Veicolo {
 	@Column(precision = 4, scale = 2)
 	private BigDecimal lunghezza;
 
-	
-
-	
-
-	@Temporal(TemporalType.DATE)
-	private Date dataScadGaranziaBase;
-
-	@Temporal(TemporalType.DATE)
-	private Date dataScadGaranziaEstesa;
-
-	
-
 	@Temporal(TemporalType.DATE)
 	private Date dataScadUsufrutto;
 
@@ -107,7 +95,6 @@ public class Veicolo {
 
 	
 
-	
 
 	private Integer numPorte;
 
@@ -173,19 +160,6 @@ public class Veicolo {
 	@Temporal(TemporalType.DATE)
 	private Date dataContrattoAssegnAziendaTpl;
 	
-	@Column(length = 15)
-	private String protArrivoAcamMessADispCons;
-	
-	private String numPolGaranziaBase;
-	
-	private String numPolGaranziaEstesa;
-	
-	@Column(length = 15)
-	private String protFidGaranziaBase;
-	
-	@Column(length = 15)
-	private String protFidGaranziaEstesa;
-	
 	@Temporal(TemporalType.DATE)
 	private Date dataScadTassaPossesso;
 
@@ -193,10 +167,42 @@ public class Veicolo {
 	private Date dataScadRca;
 	
 	@Column(length = 50)
-	private String protComReferente;
+	private String protComSituazApparati;
+	
+	@Column(length = 15)
+	private String protArrivoAcamMessADispCons;
+	
+	
+	//Dati Polizza
+	@Column(length = 15)
+	private String protFidGaranziaBase;
+	
+	@Column(length = 15)
+	private String protFidGaranziaEstesa;
+	
+    private String numPolGaranziaBase;
+	
+	private String numPolGaranziaEstesa;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dataScadPolGaranziaBase;
+
+	@Temporal(TemporalType.DATE)
+	private Date dataScadPolGaranziaEstesa;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dataScadGaranziaBase;
+
+	@Temporal(TemporalType.DATE)
+	private Date dataScadGaranziaEstesa;
+	
+	
+	
+	
 	
 	@Column(length = 50)
-	private String protComSituazApparati;
+	private String protComReferente;
+	
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaVerificaIsp;
