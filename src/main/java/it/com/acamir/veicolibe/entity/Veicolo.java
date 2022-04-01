@@ -13,8 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -27,8 +29,6 @@ public class Veicolo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	
-	
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id", nullable = false)
 	private Gara gara;
@@ -38,11 +38,10 @@ public class Veicolo {
 
 	@Column(length = 15)
 	private String telaio;
-	
+
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id", nullable = false)
 	private Azienda assegnatario;
-	
 
 	@Column(precision = 10, scale = 2)
 	private Long costoAcquistoNettoIva;
@@ -71,8 +70,6 @@ public class Veicolo {
 	@JoinColumn(referencedColumnName = "id")
 	private Dizionario fornitore;
 
-	
-
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id")
 	private Dizionario regimeProprieta;
@@ -93,9 +90,6 @@ public class Veicolo {
 	@Temporal(TemporalType.DATE)
 	private Date dataScadVincolo;
 
-	
-
-
 	private Integer numPorte;
 
 	private Integer NumSimSerialNumber;
@@ -107,10 +101,9 @@ public class Veicolo {
 
 	@Column(length = 50)
 	private String utimaVerIspettiva;
-	
+
 	@Column(length = 250)
 	private String noteVerificaIsp;
-	
 
 	@Column(length = 15)
 	private String numProtocolloRicovero;
@@ -123,113 +116,105 @@ public class Veicolo {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAggiornamento;
-	
-	
-	//Dati Nuovi
-	
+
+	// Dati Nuovi
+
 	@Column(length = 15)
 	private String classeAmbientale;
-	
+
 	@Column(length = 30)
 	private String determAssegnazione;
-	
+
 	@Column(length = 50)
 	private String estremiContrUsufrutto;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataContrUsufrutto;
-	
+
 	private Double valAnnuoCanone;
-	
+
 	private Double valPrimoCanone;
-	
+
 	private Double valDa2a8Canone;
-	
+
 	private Double val9Canone;
-	
+
 	private Double val10Canone;
-	
+
 	private Double val11Canone;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataConsegnaAziendaTpl;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataContrattoApplAziendaTpl;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataContrattoAssegnAziendaTpl;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataScadTassaPossesso;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataScadRca;
-	
+
 	@Column(length = 50)
 	private String protComSituazApparati;
-	
+
 	@Column(length = 15)
 	private String protArrivoAcamMessADispCons;
-	
-	
-	//Dati Polizza
+
+	// Dati Polizza
 	@Column(length = 15)
 	private String protFidGaranziaBase;
-	
+
 	@Column(length = 15)
 	private String protFidGaranziaEstesa;
-	
-    private String numPolGaranziaBase;
-	
+
+	private String numPolGaranziaBase;
+
 	private String numPolGaranziaEstesa;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataScadPolGaranziaBase;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataScadPolGaranziaEstesa;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataScadGaranziaBase;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataScadGaranziaEstesa;
-	
-	
-	
-	
-	
+
 	@Column(length = 50)
 	private String protComReferente;
-	
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaVerificaIsp;
-	
+
 	@Column(length = 50)
 	private String estremiProtRappVerIsp;
-	
-	//Dati Azienda
-	
+
+	// Dati Azienda
+
 	@Column(length = 150)
 	private String contrattoServizio;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaRevisione;
-	
+
 	@Column(precision = 6, scale = 3)
 	private Long kmDataRevisione;
-	
-	
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataCessMarcia;
-	
-	
+
 	@Column(length = 150)
 	private String motivoFermo;
-	
+
 	@Column(length = 50)
 	private String indirizzoDepositoRicovero;
+    
+
 }

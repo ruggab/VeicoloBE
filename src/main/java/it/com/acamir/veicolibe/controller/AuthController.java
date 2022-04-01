@@ -1,7 +1,6 @@
 package it.com.acamir.veicolibe.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -34,9 +33,8 @@ import it.com.acamir.veicolibe.payload.response.JwtResponse;
 import it.com.acamir.veicolibe.payload.response.MessageResponse;
 import it.com.acamir.veicolibe.repository.RoleRepository;
 import it.com.acamir.veicolibe.repository.UserRepository;
-import it.com.acamir.veicolibe.security.services.UserDetailsImpl;
-
 import it.com.acamir.veicolibe.security.jwt.JwtUtils;
+import it.com.acamir.veicolibe.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
