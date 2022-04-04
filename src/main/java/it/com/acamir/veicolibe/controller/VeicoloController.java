@@ -29,7 +29,6 @@ import it.com.acamir.veicolibe.security.jwt.AuthEntryPointJwt;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
 public class VeicoloController {
 	private static final Logger logger = LoggerFactory.getLogger(VeicoloController.class);
 	@Autowired

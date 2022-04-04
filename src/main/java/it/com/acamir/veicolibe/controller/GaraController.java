@@ -19,7 +19,6 @@ import it.com.acamir.veicolibe.repository.GaraRepository;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
 public class GaraController {
 
 	@Autowired
