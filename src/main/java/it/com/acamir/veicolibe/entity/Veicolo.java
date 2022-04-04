@@ -13,10 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -65,6 +63,10 @@ public class Veicolo {
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id")
 	private Dizionario classe;
+	
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "id")
+	private Dizionario classeAmbientale;
 
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id")
@@ -119,8 +121,7 @@ public class Veicolo {
 
 	// Dati Nuovi
 
-	@Column(length = 15)
-	private String classeAmbientale;
+	
 
 	@Column(length = 30)
 	private String determAssegnazione;

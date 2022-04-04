@@ -58,9 +58,7 @@ public class VeicoloController {
 	}
 
 	@ResponseBody
-	//@PostMapping("/generateVeicolo")
-	//@RequestMapping(value = "/generateVeicolo", method = RequestMethod.POST, consumes = "multipart/form-data")
-	@RequestMapping(value = "/generateVeicolo", consumes =  MediaType.MULTIPART_FORM_DATA_VALUE, method = RequestMethod.POST)
+	@PostMapping("/generateVeicolo")
 	public ResponseEntity<Veicolo> generateVeicolo(@RequestPart("fileCC") MultipartFile fileCC, @RequestPart("fileELA") MultipartFile fileELA, @RequestPart("veicolo") Veicolo veicolo ) {
 		Date now = new Date(System.currentTimeMillis());
 		 if (fileCC.isEmpty()) {
