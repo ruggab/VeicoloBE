@@ -14,6 +14,7 @@ import it.com.acamir.veicolibe.repository.DizionarioRepository;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class DizionarioController {
 
 	@Autowired

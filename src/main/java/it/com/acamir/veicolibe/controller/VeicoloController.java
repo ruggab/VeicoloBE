@@ -29,6 +29,7 @@ import it.com.acamir.veicolibe.security.jwt.AuthEntryPointJwt;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class VeicoloController {
 	private static final Logger logger = LoggerFactory.getLogger(VeicoloController.class);
 	@Autowired
@@ -58,7 +59,7 @@ public class VeicoloController {
 
 	@ResponseBody
 	@PostMapping("/generateVeicolo")
-	public ResponseEntity<Veicolo> generateVeicolo(@RequestPart("fileCC") MultipartFile fileCC, @RequestPart("fileELA") MultipartFile fileELA, @RequestPart("veicolo") Veicolo veicolo ) {
+	public ResponseEntity<Veicolo> generateVeicolo(@RequestPart("fileCC") MultipartFile fileCC, @RequestPart("fileELA") MultipartFile fileELA, @RequestPart("fileVC") MultipartFile fileVC, @RequestPart("veicolo") Veicolo veicolo ) {
 		Date now = new Date(System.currentTimeMillis());
 		 if (fileCC.isEmpty()) {
 	           logger.info(fileCC.getName());
