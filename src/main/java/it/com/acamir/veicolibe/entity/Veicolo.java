@@ -216,6 +216,23 @@ public class Veicolo {
 
 	@Column(length = 50)
 	private String indirizzoDepositoRicovero;
+	
+	
+	//Files
+	@Column(length = 150)
+	private String nomefileCC;
+	@Column(length = 150)
+	private String nomefileCCI;
+	@Column(length = 150)
+	private String nomefileELA;
+	@Column(length = 150)
+	private String nomefileVC;
+	@Column(length = 150)
+	private String nomefileTitPropFR;
+	
+	
+
+	
     
 
 }
