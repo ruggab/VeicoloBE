@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -98,5 +99,13 @@ public class VeicoloController {
 
 		return new ResponseEntity<Veicolo>(veicoloNew, HttpStatus.OK);
 	}
+	
+	 @GetMapping("/files")
+	 public ResponseEntity<byte[]> getFile(@RequestParam String idVeicolo, @RequestParam String nomeFile) {
+	    Files fileDB = veicoloService.getFile(new Long(idVeicolo), nomeFile);
+	    return ResponseEntity.ok()
+	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getNomeFile() + "\"")
+	        .body(fileDB.getData());
+	 }
 
 }
