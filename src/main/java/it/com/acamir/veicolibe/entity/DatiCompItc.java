@@ -13,7 +13,7 @@ import lombok.Data;
 public class DatiCompItc {
 
 	@Id
-	private Integer id;
+	private Long id;
 	
 	@Column(length = 100)
 	private String seriale;

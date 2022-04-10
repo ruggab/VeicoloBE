@@ -15,7 +15,7 @@ public class Dizionario {
 
 	@Id
 	@Column(name = "id")
-	private Integer id;
+	private Long id;
 
 	@Column(length = 30)
 	private String codice;

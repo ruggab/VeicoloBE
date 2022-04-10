@@ -170,7 +170,7 @@ public class AuthController {
 	@PostMapping("/getListUtenteByFilter")
 	public List<User> getListUtenteByFilter(@RequestBody User user) {
 
-		Integer idAz = null;
+		Long idAz = null;
 		if (user.getAziendas() != null && user.getAziendas().size() > 0 && user.getAziendas().get(0) != null) {
 			idAz = user.getAziendas().get(0).getId();
 		}

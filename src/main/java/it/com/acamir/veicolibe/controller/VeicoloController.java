@@ -56,7 +56,7 @@ public class VeicoloController {
 	@PostMapping("/getListVeicoloByFilter")
 	public List<Veicolo> getListVeicoloByFilter(@RequestBody Veicolo veicolo) {
 
-		Integer idAss = null;
+		Long idAss = null;
 		if (veicolo.getAssegnatario() != null) {
 			idAss = veicolo.getAssegnatario().getId();
 		}
