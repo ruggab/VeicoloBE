@@ -16,6 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -152,15 +154,20 @@ public class AuthController {
 			user.setPassword(encoder.encode(addUserRequest.getPassword()));
 		}
 
-		// Aggiungi ruolo user
-		List<Role> roles = new ArrayList<Role>();
-		Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-		roles.add(userRole);
-		user.setRoles(roles);
 		// Aggiungi Aziende
 		List<Azienda> aziendas = new ArrayList<Azienda>();
 		aziendas.add(addUserRequest.getAzienda());
 		user.setAziendas(aziendas);
+	
+		//Assegnazione Ruolo
+		// Aggiungi ruolo user
+		List<Role> roles = new ArrayList<Role>();
+		Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+		if (addUserRequest.getAzienda().getId() == 1) {
+			userRole = roleRepository.findByName(ERole.ROLE_ADMIN).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+		}
+		roles.add(userRole);
+		user.setRoles(roles);
 		//
 		userRepository.save(user);
 		//
@@ -177,6 +184,13 @@ public class AuthController {
 
 		List<User> listaUtente = userRepository.getListUtenteByFilter(user.getUsername(), idAz);
 		return listaUtente;
+	}
+
+	@GetMapping("/deleteUtente/{idUtente}")
+	public ResponseEntity<?> deleteUtente(@PathVariable(value = "idUtente") String idUtente) {
+
+		userRepository.deleteById(new Long(idUtente));
+		return ResponseEntity.ok(new MessageResponse("Utente Aggiornato Correttamente"));
 	}
 
 }

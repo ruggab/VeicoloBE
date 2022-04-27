@@ -9,17 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,8 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.com.acamir.veicolibe.entity.Files;
 import it.com.acamir.veicolibe.entity.Veicolo;
+import it.com.acamir.veicolibe.payload.response.MessageResponse;
 import it.com.acamir.veicolibe.repository.VeicoloRepository;
-import it.com.acamir.veicolibe.security.jwt.AuthEntryPointJwt;
 import it.com.acamir.veicolibe.services.VeicoloService;
 
 @RestController
@@ -44,9 +40,10 @@ public class VeicoloController {
 	VeicoloService veicoloService;
 
 	@GetMapping("/deleteVeicolo/{idVeicolo}")
-	public List<Veicolo> deleteGara(@PathVariable(value = "idVeicolo") String idVeicolo) {
-		veicoloRepository.deleteById(new Integer(idVeicolo));
-		return veicoloRepository.findAll();
+	public ResponseEntity<?> deleteVeicolo(@PathVariable(value = "idVeicolo") String idVeicolo) {
+		
+		veicoloRepository.deleteById(new Long(idVeicolo));
+		return ResponseEntity.ok(new MessageResponse("Veicolo Aggiornato Correttamente"));
 	}
 
 	@GetMapping("/getListVeicolo")
@@ -56,11 +53,13 @@ public class VeicoloController {
 
 	@PostMapping("/getListVeicoloByFilter")
 	public List<Veicolo> getListVeicoloByFilter(@RequestBody Veicolo veicolo) {
-
+		
 		Long idAss = null;
 		if (veicolo.getAssegnatario() != null) {
 			idAss = veicolo.getAssegnatario().getId();
+			logger.info(veicolo.getMatricola() + " " +  veicolo.getTelaio() + " " +   idAss);
 		}
+		logger.info(">>>>" + veicolo.getMatricola() + " " +  veicolo.getTelaio() + " " +   idAss);
 		List<Veicolo> listaVeicoli = veicoloRepository.getListVeicoloByFilter(veicolo.getMatricola(), veicolo.getTelaio(), idAss);
 		return listaVeicoli;
 	}
@@ -68,7 +67,7 @@ public class VeicoloController {
 
 	@ResponseBody
 	@PostMapping("/generateVeicolo")
-	public ResponseEntity<Veicolo> generateVeicolo(@RequestPart(name="fileCC", required = false) MultipartFile fileCC, 
+	public ResponseEntity<?> generateVeicolo(@RequestPart(name="fileCC", required = false) MultipartFile fileCC, 
 												   @RequestPart(name="fileELA", required = false) MultipartFile fileELA, 
 												   @RequestPart(name="fileVC", required = false) MultipartFile fileVC, 
 												   @RequestPart(name="fileTitPropFR", required = false) MultipartFile fileTitPropFR,
@@ -92,12 +91,12 @@ public class VeicoloController {
 		try {
 			 veicoloNew = veicoloService.storeListFile(veicolo, listFile);
 		} catch (Exception e) {
-			logger.info(e.toString() + " - " + e.getMessage());
-			return new ResponseEntity<Veicolo>(veicoloNew, HttpStatus.INTERNAL_SERVER_ERROR);
+			logger.error(e.toString() + " - " + e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 		
 
-		return new ResponseEntity<Veicolo>(veicoloNew, HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.CREATED).body(veicoloNew);
 	}
 	
 	 @GetMapping("/files")

@@ -2,7 +2,13 @@ package it.com.acamir.veicolibe.controller;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.com.acamir.veicolibe.entity.Gara;
+import it.com.acamir.veicolibe.payload.response.MessageResponse;
 import it.com.acamir.veicolibe.repository.GaraRepository;
+import it.com.acamir.veicolibe.utils.ApiError;
 
 @RestController
 @RequestMapping("/api")
@@ -25,12 +33,33 @@ public class GaraController {
 	@Autowired
 	GaraRepository garaRepository;
 
-
+	private static final Logger logger = LoggerFactory.getLogger(GaraController.class);
+	
+	
+//	@GetMapping("/deleteGara/{idGara}")
+//	public List<Gara> deleteGara(@PathVariable(value = "idGara") String idGara) {
+//		garaRepository.deleteById(new Long(idGara));
+//		return garaRepository.findAll();
+//	}
+	
 	@GetMapping("/deleteGara/{idGara}")
-	public List<Gara> deleteGara(@PathVariable(value = "idGara") String idGara) {
-		garaRepository.deleteById(new Integer(idGara));
-		return garaRepository.findAll();
+	public ResponseEntity<?> deleteGara(@PathVariable(value = "idGara") String idGara) {
+		try {
+			garaRepository.deleteById(new Long(idGara));
+		} catch (Exception e) {
+			logger.error(e.toString() + " - " + e.getMessage());
+            String errorMsg = e.getMessage();
+            if (e instanceof DataIntegrityViolationException) {
+            	errorMsg = "Non è possibile eliminare questa Gara perché esistono Veicoli ad essa Associata";
+            }
+            
+			return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMsg);
+		}
+		
+		return ResponseEntity.ok(new MessageResponse("Gara Aggiornata Correttamente"));
 	}
+	
+	
 	
 	@GetMapping("/getListGara")
 	public List<Gara> getListGara() {

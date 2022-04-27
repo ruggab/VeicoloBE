@@ -7,9 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "files")
-public class DBFile {
+@Data
+public class Files {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +26,15 @@ public class DBFile {
 
 	@Lob
 	private byte[] data;
+
+	public Files() {
+	}
+
+	public Files(Long idVeicolo, String name, String type, byte[] data) {
+		this.idVeicolo = idVeicolo;
+		this.nomeFile = name;
+		this.tipoFile = type;
+		this.data = data;
+	}
 
 }

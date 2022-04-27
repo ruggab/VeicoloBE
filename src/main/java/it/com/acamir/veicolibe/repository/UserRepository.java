@@ -22,6 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	
 	 @Query(value = "select a.* from users a inner join users_azienda b on a.id = b.user_id"
-	    		+ " where (?1 = '' or a.username = ?1) and (?2 is null or b.azienda_id = ?2) " , nativeQuery = true)
+	    		+ " where (?1 = '' or a.username like %?1%) and (?2 is null or b.azienda_id = ?2) " , nativeQuery = true)
 	 List<User> getListUtenteByFilter(String username,  Long idAzienda);
 }
