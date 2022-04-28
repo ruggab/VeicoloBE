@@ -59,7 +59,7 @@ public class VeicoloController {
 			idAss = veicolo.getAssegnatario().getId();
 			logger.info(veicolo.getMatricola() + " " +  veicolo.getTelaio() + " " +   idAss);
 		}
-		logger.info(">>>>" + veicolo.getMatricola() + " " +  veicolo.getTelaio() + " " +   idAss);
+		logger.info(">>>> Mat: " + veicolo.getMatricola() + " TEL: " +  veicolo.getTelaio() + " ID_AZ" +   idAss);
 		List<Veicolo> listaVeicoli = veicoloRepository.getListVeicoloByFilter(veicolo.getMatricola(), veicolo.getTelaio(), idAss);
 		return listaVeicoli;
 	}

@@ -119,9 +119,8 @@ public class Veicolo {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAggiornamento;
 
-	// Dati Nuovi
-
-	
+	@Column(length = 6)
+	private String matricolaAz;
 
 	@Column(length = 30)
 	private String determAssegnazione;

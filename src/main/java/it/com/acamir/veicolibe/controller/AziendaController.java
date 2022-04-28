@@ -55,7 +55,7 @@ public class AziendaController {
 	
 	@GetMapping("/getListAzienda")
 	public List<Azienda> getListAzienda() {
-		return aziendaRepository.findAll();
+		return aziendaRepository.findAllByOrderByMatricola();
 	}
 	
 	@GetMapping("/getListAziendaNoAcamir")

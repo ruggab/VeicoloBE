@@ -17,4 +17,7 @@ public interface AziendaRepository extends JpaRepository<Azienda, Long>, JpaSpec
 
 	@Query(value = "select * from azienda a where id <> 1", nativeQuery = true)
 	List<Azienda> getListAziendaNoAcamir();
+	
+	
+	List<Azienda> findAllByOrderByMatricola();
 }
